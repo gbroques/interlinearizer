@@ -79,7 +79,10 @@ ejemplo.	example.
         if (!pairs || !pairs.length) return;
         let paragraph = document.createElement('p');
         for (const [original, translation] of pairs) {
-          if (!original || !translation) return;
+          if (!original || !translation) {
+            yield paragraph;
+            return;
+          }
           if (original === '|' || translation === '|') {
             yield paragraph;
             paragraph = document.createElement('p');
