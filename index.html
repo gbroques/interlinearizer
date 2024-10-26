@@ -1,12 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interlinearizer</title>
     <style>
+    html[data-theme='light'] {
+      --text-color: black;
+      --background-color: white;
+    }
+    html[data-theme='dark'] {
+      --text-color: white;
+      --background-color: black;
+    }
     @media print {
       .no-print { display: none; }
+    }
+    body {
+      color: var(--text-color);
+      background-color: var(--background-color);
     }
     #container {
       text-align: justify;
@@ -22,14 +34,13 @@
     }
     .original {
       display: inline-block;
-      color: #222222;
       font-size: 1.2em;
       min-width: 5px;
     }
     .translation {
       display: block;
       margin-top: 0.74vw;
-      color: #6E6B6B;
+      color: rgb(from var(--text-color) r g b / 0.72);
       font-size: 0.74em;
     }
     </style>
