@@ -69,33 +69,39 @@ ejemplo.	example.
         const lines = text.split('\n');
         return lines.map(line => line.split(/\t/));
       }
-      function interlinearize(text) {
-        if (!text) return;
-        const pairs = parseTextIntoPairs(text);
-        const container = document.getElementById('container');
-        container.innerHTML = '';
-        let p = document.createElement('p');
-        pairs.forEach(([original, translation]) => {
+      function* pairsIntoParagraphs(pairs) {
+        if (!pairs || !pairs.length) return;
+        let paragraph = document.createElement('p');
+        for (const [original, translation] of pairs) {
           if (!original || !translation) return;
           if (original === '|' || translation === '|') {
-            container.appendChild(p);
-            p = document.createElement('p');
-            return;
+            yield paragraph;
+            paragraph = document.createElement('p');
+          } else {
+            const pairContainer = document.createElement('span');
+            pairContainer.className = 'pair';
+            const span1 = document.createElement('span');
+            span1.className = 'original';
+            span1.innerText = original;
+            pairContainer.appendChild(span1);
+            pairContainer.appendChild(document.createElement('br'));
+            const span2 = document.createElement('span');
+            span2.className = 'translation';
+            span2.innerText = translation;
+            pairContainer.appendChild(span2);
+            paragraph.appendChild(pairContainer);
           }
-          const pairContainer = document.createElement('span');
-          pairContainer.className = 'pair';
-          const span1 = document.createElement('span');
-          span1.className = 'original';
-          span1.innerText = original;
-          pairContainer.appendChild(span1);
-          pairContainer.appendChild(document.createElement('br'));
-          const span2 = document.createElement('span');
-          span2.className = 'translation';
-          span2.innerText = translation;
-          pairContainer.appendChild(span2);
-          p.appendChild(pairContainer);
-        });
-        container.appendChild(p);
+        }
+        yield paragraph;
+      }
+      function interlinearize(text) {
+        const container = document.getElementById('container');
+        container.innerHTML = '';
+        if (!text) return;
+        const pairs = parseTextIntoPairs(text);
+        for (const paragraph of pairsIntoParagraphs(pairs)) {
+          container.appendChild(paragraph);
+        }
       }
       function handleSubmit(event) {
         event.preventDefault();
