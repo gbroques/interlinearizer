@@ -28,6 +28,7 @@
       font-family: "Roboto", "Franklin Gothic Medium", Tahoma, sans-serif;
       color: var(--text-color);
       background-color: var(--background-color);
+      margin: 0px 16px;
     }
     a {
       color: var(--link-color);
@@ -41,11 +42,13 @@
     .pair {
       display: inline-block;
       margin-top: 2vw;
-      padding-left: 1.4vw;
       white-space: nowrap;
       text-align: center;
       line-height: 1.25;
       vertical-align: top;
+    }
+    .pair:not(:first-child) {
+      padding-left: 1.4vw;
     }
     .original {
       display: inline-block;
@@ -71,7 +74,7 @@ Un 	An
 ejemplo.	example.
 |	|
 ¡Pruebalo!	Try it!</pre>
-      <p>Results may be saved as a PDF by pressing <code>Ctrl</code> + <code>P</code>.</p>
+      <p>Results may be saved as a PDF by pressing <code>Ctrl</code> + <code>P</code>, and the below 'Title' may be edited.</p>
       <p>Inspired from <a target="_blank" href="https://interlinearbooks.com/">Interlinear Books</a> and their <a href="https://interlinearbooks.com/tools/interlinearizer/">interlinearizer tool</a>.</p>
       <form onsubmit="handleSubmit(event)">
   <textarea rows="10" cols="70" name="text" id="text" placeholder="Un 	An
@@ -80,7 +83,9 @@ ejemplo.	example.
 ¡Pruebalo!	Try it!"></textarea>
         <button type="submit">Submit</button>
       </form>
+      <hr />
     </div>
+    <h1 contenteditable="true">Title</h1>
     <div id="container"></div>
     <script>
       function parseTextIntoPairs(text) {
