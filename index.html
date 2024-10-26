@@ -69,6 +69,12 @@ ejemplo.	example.
         const lines = text.split('\n');
         return lines.map(line => line.split(/\t/));
       }
+      function createSpan(className, innerText = '') {
+        const span = document.createElement('span');
+        span.className = className;
+        span.innerText = innerText;
+        return span;
+      }
       function* pairsIntoParagraphs(pairs) {
         if (!pairs || !pairs.length) return;
         let paragraph = document.createElement('p');
@@ -78,16 +84,11 @@ ejemplo.	example.
             yield paragraph;
             paragraph = document.createElement('p');
           } else {
-            const pairContainer = document.createElement('span');
-            pairContainer.className = 'pair';
-            const span1 = document.createElement('span');
-            span1.className = 'original';
-            span1.innerText = original;
+            const pairContainer = createSpan('pair');
+            const span1 = createSpan('original', original);
             pairContainer.appendChild(span1);
             pairContainer.appendChild(document.createElement('br'));
-            const span2 = document.createElement('span');
-            span2.className = 'translation';
-            span2.innerText = translation;
+            const span2 = createSpan('translation', translation);
             pairContainer.appendChild(span2);
             paragraph.appendChild(pairContainer);
           }
