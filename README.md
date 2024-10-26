@@ -1,4 +1,4 @@
-# interlinearize
+# interlinearizer
 
 Generates an *[interlinear text](https://en.wikipedia.org/wiki/Interlinear_gloss)* — a text with translation between lines — given translation pairs of semantic units (the shortest possible part of a phrase which makes sense when translated).
 
