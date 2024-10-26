@@ -49,15 +49,14 @@
       <p>Generates an <a target="_blank" href="https://en.wikipedia.org/wiki/Interlinear_gloss"><em>interlinear text</em></a> — a text with translation between lines — given translation pairs of semantic units (the shortest possible part of a phrase which makes sense when translated).</p>
       <p>Translations are separated by a tab, pairs by a newline <code>\n</code>, and paragraphs by pipes <code>|</code>.<p>
       <p>For example:</p>
-      <p><pre>
+      <pre>
 Un 	An
 ejemplo.	example.
 |	|
-¡Pruebalo!	Try it!
-      </pre>
-      </p>
+¡Pruebalo!	Try it!</pre>
+      <p>Results may be saved as a PDF by pressing <code>Ctrl</code> + <code>P</code>.</p>
       <form onsubmit="handleSubmit(event)">
-  <textarea rows="10" cols="70" name="text" id="text" role="textbox" placeholder="Un 	An
+  <textarea rows="10" cols="70" name="text" id="text" placeholder="Un 	An
 ejemplo.	example.
 |	|
 ¡Pruebalo!	Try it!"></textarea>
