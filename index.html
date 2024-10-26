@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interlinearizer</title>
     <style>
+    @media print {
+      .no-print { display: none; }
+    }
     #container {
       text-align: justify;
     }
@@ -41,24 +44,26 @@
     </style>
 </head>
 <body>
-    <h1>Interlinearizer</h1>
-    <p>Generates an <a target="_blank" href="https://en.wikipedia.org/wiki/Interlinear_gloss"><em>interlinear text</em></a> — a text with translation between lines — given translation pairs of semantic units (the shortest possible part of a phrase which makes sense when translated).</p>
-    <p>Translations are separated by a tab, pairs by a newline <code>\n</code>, and paragraphs by pipes <code>|</code>.<p>
-    <p>For example:</p>
-    <p><pre>
+    <div class='no-print'>
+      <h1>Interlinearizer</h1>
+      <p>Generates an <a target="_blank" href="https://en.wikipedia.org/wiki/Interlinear_gloss"><em>interlinear text</em></a> — a text with translation between lines — given translation pairs of semantic units (the shortest possible part of a phrase which makes sense when translated).</p>
+      <p>Translations are separated by a tab, pairs by a newline <code>\n</code>, and paragraphs by pipes <code>|</code>.<p>
+      <p>For example:</p>
+      <p><pre>
 Un 	An
 ejemplo.	example.
 |	|
 ¡Pruebalo!	Try it!
-    </pre>
-    </p>
-    <form onsubmit="handleSubmit(event)">
-<textarea rows="10" cols="70" name="text" id="text" role="textbox" placeholder="Un 	An
+      </pre>
+      </p>
+      <form onsubmit="handleSubmit(event)">
+  <textarea rows="10" cols="70" name="text" id="text" role="textbox" placeholder="Un 	An
 ejemplo.	example.
 |	|
 ¡Pruebalo!	Try it!"></textarea>
-      <button type="submit">Submit</button>
-    </form>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
     <div id="container"></div>
     <script>
       function parseTextIntoPairs(text) {
