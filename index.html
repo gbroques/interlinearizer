@@ -4,22 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interlinearizer</title>
+    <!-- Google Font CDN -->
+    <!-- https://fonts.google.com/specimen/Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <style>
     html[data-theme='light'] {
       --text-color: black;
       --background-color: white;
+      --link-color: #2196F3; /** Blue 500 https://materialui.co/colors */
     }
     html[data-theme='dark'] {
       --text-color: white;
       --background-color: black;
+      --link-color: #82B1FF; /** Blue A100 https://materialui.co/colors */
     }
     @media print {
       .no-print { display: none; }
     }
     body {
       font-size: 16px;
+      font-family: "Roboto", "Franklin Gothic Medium", Tahoma, sans-serif;
       color: var(--text-color);
       background-color: var(--background-color);
+    }
+    a {
+      color: var(--link-color);
     }
     textarea {
       max-width: 100%;
