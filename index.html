@@ -13,7 +13,7 @@
     html[data-theme='light'] {
       --text-color: black;
       --background-color: white;
-      --link-color: #2196F3; /** Blue 500 https://materialui.co/colors */
+      --link-color: blue;
     }
     html[data-theme='dark'] {
       --text-color: white;
@@ -24,7 +24,6 @@
       .no-print { display: none; }
     }
     body {
-      font-size: 16px;
       font-family: "Roboto", "Franklin Gothic Medium", Tahoma, sans-serif;
       color: var(--text-color);
       background-color: var(--background-color);
@@ -36,57 +35,276 @@
     textarea {
       max-width: 100%;
     }
-    #container {
+    #interlinear-text-container {
       text-align: justify;
     }
     .pair {
       display: inline-block;
-      margin-top: 2vw;
       white-space: nowrap;
       text-align: center;
-      line-height: 1.25;
-      vertical-align: top;
     }
     .pair:not(:first-child) {
-      padding-left: 1.4vw;
+      padding-left: 1ch;
     }
     .original {
-      display: inline-block;
       font-size: 1.25rem;
-      min-width: 5px;
     }
     .translation {
-      display: block;
-      margin-top: 0.74vw;
-      color: rgb(from var(--text-color) r g b / 0.72);
       font-size: 0.875rem;
+      display: block;
+      color: rgb(from var(--text-color) r g b / 0.72);
+    }
+
+    /*-------------------------------------------------------------------*
+     | Baseline                                                          |
+     | https://maketypework.com/web-typography-baseline-grids-made-easy/ |
+     *-------------------------------------------------------------------*/
+    :root { 
+      font-size: 100%;
+    }
+
+    /* Show baseline grid */
+    html.show-grid body {
+      background-image: linear-gradient(to bottom, #0ff 0, transparent 1px);
+      background-repeat: repeat-y;
+      background-size: 100% 1rem;
+    }
+
+    /* Set headings to baseline */
+    h1, h2, h3, h4, h5, h6 {
+      --baselines: 3;
+      --beneath: 1;
+      --baseline-shift: calc(calc(calc(var(--baselines) * 1rem) - 1cap) / 2);
+      --baseline-push: calc(calc(var(--beneath) * 1rem) - var(--baseline-shift));
+
+      font-weight: 700;
+      line-height: calc(var(--baselines) * 1rem);
+      margin: 0;
+      padding: 0;
+      font-feature-settings: 'kern', 'lnum', 'liga';
+      padding-top: var(--baseline-shift);
+      margin-bottom: var(--baseline-push);
+    }
+
+    h4, h5, h6 {
+      --baselines: 2;
+      --beneath: 0;
+    }
+
+    /* Set text to baseline */
+    p, ul, ol {
+      --baselines: 2;
+      --beneath: 1;
+      --baseline-shift: calc(calc(calc(var(--baselines) * 1rem) - 1cap) / 2);
+      --baseline-push: calc(calc(var(--beneath) * 1rem) - var(--baseline-shift));
+
+      font-size: 1.2rem;
+      line-height: calc(var(--baselines) * 1rem);
+      margin: 0;
+      padding: 0;
+      font-feature-settings: 'kern', 'onum', 'liga';
+      padding-top: var(--baseline-shift);
+      margin-bottom: var(--baseline-push);
+    }
+
+    p + h1, ul + h1, ol + h1,
+    p + h2, ul + h2, ol + h2,
+    p + h3, ul + h3, ol + h3 {
+      padding-top: calc(var(--baseline-shift) + 1rem);
+    }
+
+
+    /* Heading sizing modular scale */
+    h1 {
+      font-size: 2.986rem;
+    }
+
+    h2 {
+      font-size: 2.488rem;
+    }
+
+    h3 {
+      font-size: 2.074rem;
+    }
+
+    h4 {
+      font-size: 1.728rem;
+    }
+
+    h5 {
+      font-size: 1.44rem;
+    }
+
+    h6 {
+      font-size: 1.2rem;
+    }
+
+    /* Additional typographic element styling */
+
+    pre {
+      font-size: 1rem;
+      line-height: 1rem;
+      background-color: rgba(245, 245, 215, 0.5);
+      margin-top: 0;
+      margin-bottom: 2rem;
+      padding: 1rem;
+      white-space: pre-wrap;
+      word-break: break-all;
+      word-wrap: break-word;
+    }
+
+    code {
+      line-height: 1rem;
+    }
+
+    blockquote {
+
+      p {
+        border-left: 0.15rem solid blue;
+        font-style: italic;
+        padding-left: 1rem;
+        padding-bottom: calc(calc(var(--beneath) * 1rem) - calc(calc(calc(var(--baselines) * 1rem) - 1cap) / 2));
+        margin-bottom: 1rem;
+      }
+    }
+
+    b, strong {
+      font-weight: 700;
+    }
+
+    em, i {
+      font-style: italic;
+    }
+
+    ul, ol {
+
+      li {
+
+        ol, ul {
+          padding-top: 1rem;
+          margin-bottom: 1rem;
+          margin-left: 2rem;
+        }
+      }
+    }
+
+    ul {
+      list-style-type: disc;
+    }
+
+    ol {
+      list-style-type: none;
+
+      li {
+        counter-increment: top-level;
+
+        &:before {
+          content: counter(top-level) '.';
+          font-feature-settings: 'lnum', 'tnum';
+          margin-left: -3rem;
+          position: absolute;
+          text-align: right;
+          width: 2em;
+        }
+
+        ul {
+
+          li {
+
+            &:before {
+              content: '';
+            }
+
+            ol {
+
+              li {
+                counter-increment: alt-level;
+
+                &:before {
+                  content: counter(alt-level) '.';
+                }
+              }
+            }
+          }
+        }
+
+        ol {
+
+          li {
+            counter-increment: sub-level;
+
+            &:before {
+              content: counter(top-level) '.' counter(sub-level);
+            }
+
+            ul {
+
+              li {
+
+                &:before {
+                  content: '';
+                }
+              }
+            }
+
+            ol {
+
+              li {
+                counter-increment: sub-sub-level;
+
+                &:before {
+                  content: counter(top-level) '.' counter(sub-level) '.' counter(sub-sub-level);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+
+    hr {
+      background-image: linear-gradient(to bottom,rgba(0, 0, 0, 0) 50%,gray 50%);
+      background-position: 0 50%;
+      background-repeat: repeat-x;
+      background-size: 100% 0.15rem;
+      border: 0;
+      margin: 0;
+      padding-bottom: 3rem;
+      padding-top: 3rem;
+    }
+
+    .container {
+      width: 94%;
+      max-width: 65rem;
+      margin: 0 auto;
+      position: relative;
     }
     </style>
 </head>
 <body>
-    <div class='no-print'>
-      <h1>Interlinearizer</h1>
-      <p>Generates an <a target="_blank" href="https://en.wikipedia.org/wiki/Interlinear_gloss"><em>interlinear text</em></a> — a text with translation between lines — given translation pairs of semantic units (the shortest possible part of a phrase which makes sense when translated).</p>
-      <p>Translations are separated by a tab, pairs by a newline <code>\n</code>, and paragraphs by pipes <code>|</code>.<p>
-      <p>For example:</p>
-      <pre>
+    <div class="container">
+      <div class="no-print">
+        <h1>Interlinearizer</h1>
+        <p>Generates an <a target="_blank" href="https://en.wikipedia.org/wiki/Interlinear_gloss"><em>interlinear text</em></a> — a text with translation between lines — given translation pairs of semantic units (the shortest possible part of a phrase which makes sense when translated).</p>
+        <p>Translations are separated by a tab, pairs by a newline <code>\n</code>, and paragraphs by pipes <code>|</code>.</p>
+        <p>For example:</p>
+        <pre>
 Un 	An
 ejemplo.	example.
 |	|
 ¡Pruebalo!	Try it!</pre>
-      <p>Results may be saved as a PDF by pressing <code>Ctrl</code> + <code>P</code>, and the below 'Title' may be edited.</p>
-      <p>Inspired from <a target="_blank" href="https://interlinearbooks.com/">Interlinear Books</a> and their <a href="https://interlinearbooks.com/tools/interlinearizer/">interlinearizer tool</a>.</p>
-      <form onsubmit="handleSubmit(event)">
-  <textarea rows="10" cols="70" name="text" id="text" placeholder="Un 	An
+        <textarea oninput="handleInput(event)" rows="10" cols="70" name="text" id="text" placeholder="Un 	An
 ejemplo.	example.
 |	|
 ¡Pruebalo!	Try it!"></textarea>
-        <button type="submit">Submit</button>
-      </form>
-      <hr />
+        <p>Results may be saved as a PDF by pressing <code>Ctrl</code> + <code>P</code>, and the below 'Title' may be edited.</p>
+        <p>Inspired from <a target="_blank" href="https://interlinearbooks.com/">Interlinear Books</a> and their <a target="_blank" href="https://interlinearbooks.com/tools/interlinearizer/">interlinearizer tool</a>.</p>
+        <hr />
+      </div>
+      <h1 contenteditable="true">Title</h1>
+      <div id="interlinear-text-container"></div>
     </div>
-    <h1 contenteditable="true">Title</h1>
-    <div id="container"></div>
     <script>
       function parseTextIntoPairs(text) {
         const lines = text.split('\n');
@@ -121,7 +339,7 @@ ejemplo.	example.
         yield paragraph;
       }
       function interlinearize(text) {
-        const container = document.getElementById('container');
+        const container = document.getElementById('interlinear-text-container');
         container.innerHTML = '';
         if (!text) return;
         const pairs = parseTextIntoPairs(text);
@@ -129,9 +347,9 @@ ejemplo.	example.
           container.appendChild(paragraph);
         }
       }
-      function handleSubmit(event) {
+      function handleInput(event) {
         event.preventDefault();
-        const text = event.target.text.value;
+        const text = event.target.value;
         interlinearize(text);
       }
     </script>
